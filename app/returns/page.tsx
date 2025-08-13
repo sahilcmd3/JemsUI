@@ -11,7 +11,7 @@ export default function ReturnsPage() {
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2">
               <Gem className="h-6 w-6 text-purple-600" />
-              <span className="text-xl font-bold">LuxeGems</span>
+              <span className="text-xl font-bold">Name & CO.</span>
             </Link>
           </div>
         </div>
@@ -144,13 +144,13 @@ export default function ReturnsPage() {
                   <div>
                     <h4 className="font-semibold mb-2">Customer Service</h4>
                     <p className="text-sm text-gray-600 mb-1">📞 +91 98765 43210</p>
-                    <p className="text-sm text-gray-600 mb-1">📧 returns@luxegems.com</p>
+                    <p className="text-sm text-gray-600 mb-1">📧 returns@example.com</p>
                     <p className="text-sm text-gray-600">Mon-Sat: 10 AM - 7 PM</p>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">Return Address</h4>
                     <p className="text-sm text-gray-600">
-                      LuxeGems Returns Department
+                      Name & CO. Returns Department
                       <br />
                       123 Jewelry Street
                       <br />

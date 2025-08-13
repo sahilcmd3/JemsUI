@@ -11,7 +11,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "LuxeGems - Luxury Jewelry Marketplace",
+  title: "Luxury Jewelry Marketplace",
   description: "Discover exquisite handcrafted jewelry pieces from around the world",
     generator: 'v0.dev'
 }

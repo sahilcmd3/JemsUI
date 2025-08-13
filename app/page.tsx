@@ -296,7 +296,16 @@ export default function HomePage() {
           <p className="text-lg md:text-xl mb-8">
             Book an appointment with our experts for a personalized experience.
           </p>
-          <Button size="lg" className="bg-white text-black font-bold hover:bg-gray-200">
+          <Button
+            size="lg"
+            className="bg-white text-black font-bold hover:bg-gray-200"
+            onClick={() => {
+              // Try to open site header appointment dialog
+              const trigger = document.getElementById('appointment-dialog-trigger') as HTMLButtonElement | null;
+              trigger?.click();
+            }}
+            aria-label="Book an appointment"
+          >
             Book Appointment
           </Button>
         </div>

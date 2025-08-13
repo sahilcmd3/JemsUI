@@ -104,7 +104,7 @@ export default function CollectionsPage() {
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2">
               <Gem className="h-6 w-6 text-purple-600" />
-              <span className="text-xl font-bold">LuxeGems</span>
+              <span className="text-xl font-bold">Name & CO.</span>
             </Link>
             <nav className="hidden md:flex items-center space-x-6">
               <Link href="/" className="text-gray-700 hover:text-purple-600 transition-colors">
@@ -253,7 +253,7 @@ export default function CollectionsPage() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <Gem className="h-6 w-6 text-purple-400" />
-                <span className="text-xl font-bold">LuxeGems</span>
+                <span className="text-xl font-bold">Name & CO.</span>
               </div>
               <p className="text-gray-400 mb-4">
                 Crafting timeless jewelry pieces that celebrate life's precious moments.
@@ -312,14 +312,14 @@ export default function CollectionsPage() {
             <div>
               <h3 className="font-semibold mb-4">Contact Info</h3>
               <div className="space-y-2 text-gray-400">
-                <p>📧 hello@luxegems.com</p>
+                <p>📧 hello@example.com</p>
                 <p>📞 +91 98765 43210</p>
                 <p>📍 Mumbai, India</p>
               </div>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 LuxeGems. All rights reserved.</p>
+            <p>&copy; 2024 Name & CO.. All rights reserved.</p>
           </div>
         </div>
       </footer>

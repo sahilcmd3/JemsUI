@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -25,10 +27,13 @@ export function SiteFooter() {
           <p className="text-gray-600 mb-4">
             Be the first to know about exciting new designs, special events, store openings and much more.
           </p>
-          <div className="flex w-full max-w-sm items-center space-x-2 mb-4">
-            <Input type="email" placeholder="Email" className="flex-grow border-b border-gray-400 focus:border-gray-900 px-0 py-1 bg-transparent text-gray-900 placeholder-gray-500" />
-            <Button variant="outline" className="border border-gray-900 text-gray-900 hover:bg-gray-100">Sign up</Button>
-          </div>
+          <form
+            className="flex w-full max-w-sm items-center space-x-2 mb-4"
+            onSubmit={(e) => { e.preventDefault(); const form = e.currentTarget; const input = form.querySelector('input[type="email"]') as HTMLInputElement | null; alert(`Subscribed: ${(input?.value)||''}`); }}
+          >
+            <Input required type="email" placeholder="Email" className="flex-grow border-b border-gray-400 focus:border-gray-900 px-0 py-1 bg-transparent text-gray-900 placeholder-gray-500" />
+            <Button type="submit" variant="outline" className="border border-gray-900 text-gray-900 hover:bg-gray-100">Sign up</Button>
+          </form>
           <div className="flex space-x-4 mb-8">
             <Link href="#" className="text-gray-600 hover:text-gray-900"><Instagram className="h-5 w-5" /></Link>
             <Link href="#" className="text-gray-600 hover:text-gray-900"><Facebook className="h-5 w-5" /></Link>

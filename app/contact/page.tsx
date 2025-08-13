@@ -1,3 +1,5 @@
+"use client"
+
 import type { Metadata } from "next"
 import Link from "next/link"
 
@@ -26,7 +28,7 @@ export default function ContactPage() {
       <div className="grid md:grid-cols-2 gap-12 mb-16">
         <Card>
           <CardContent className="pt-6">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); /* TODO: integrate backend */ alert('Message sent (demo)'); }}>
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
                 <Input id="name" placeholder="Your name" required />

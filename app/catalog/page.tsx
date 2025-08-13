@@ -254,6 +254,12 @@ export default function CatalogPage() {
     )
   }
 
+  function clearAllFilters() {
+    setSelectedCategories([])
+    setSelectedSubcategories([])
+    setPriceRange([0, 100000])
+  }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -319,7 +325,18 @@ export default function CatalogPage() {
                   </Accordion>
                 </div>
 
-                <Button className="w-full border-gray-300 text-gray-800 hover:bg-gray-100" variant="outline">
+                <Button
+                  className="w-full border-gray-300 text-gray-800 hover:bg-gray-100"
+                  variant="outline"
+                  onClick={clearAllFilters}
+                  aria-label="Clear all filters"
+                  disabled={
+                    selectedCategories.length === 0 &&
+                    selectedSubcategories.length === 0 &&
+                    priceRange[0] === 0 &&
+                    priceRange[1] === 100000
+                  }
+                >
                   Clear Filters
                 </Button>
               </CardContent>
@@ -393,7 +410,18 @@ export default function CatalogPage() {
                       </Accordion>
                     </div>
 
-                    <Button className="w-full border-gray-300 text-gray-800 hover:bg-gray-100" variant="outline">
+                    <Button
+                      className="w-full border-gray-300 text-gray-800 hover:bg-gray-100"
+                      variant="outline"
+                      onClick={() => { clearAllFilters(); setFilterOpen(false) }}
+                      aria-label="Clear all filters"
+                      disabled={
+                        selectedCategories.length === 0 &&
+                        selectedSubcategories.length === 0 &&
+                        priceRange[0] === 0 &&
+                        priceRange[1] === 100000
+                      }
+                    >
                       Clear Filters
                     </Button>
                   </CardContent>

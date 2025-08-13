@@ -16,6 +16,8 @@ import Image from "next/image"
 
 export default function AdminDashboard() {
   const [isAddProductOpen, setIsAddProductOpen] = useState(false)
+  const [isEditProductOpen, setIsEditProductOpen] = useState(false)
+  const [productBeingEdited, setProductBeingEdited] = useState<any | null>(null)
 
   const stats = [
     {
@@ -113,7 +115,7 @@ export default function AdminDashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Gem className="h-6 w-6 text-purple-600" />
-              <span className="text-xl font-bold">LuxeGems Admin</span>
+              <span className="text-xl font-bold">Name & CO. Admin</span>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="outline">View Store</Button>
@@ -218,70 +220,68 @@ export default function AdminDashboard() {
                       </div>
                     </DialogContent>
                   </Dialog>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="ghost" size="sm" className="edit-product-button hidden">
-                        <Edit className="h-4 w-4" />
-                      </Button>
-                    </DialogTrigger>
+                  {/* Edit Product Dialog */}
+                  <Dialog open={isEditProductOpen} onOpenChange={setIsEditProductOpen}>
                     <DialogContent className="max-w-2xl">
                       <DialogHeader>
                         <DialogTitle>Edit Product</DialogTitle>
                       </DialogHeader>
-                      <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="edit-name">Product Name</Label>
-                            <Input id="edit-name" placeholder="Enter product name" />
-                          </div>
-                          <div>
-                            <Label htmlFor="edit-price">Price (₹)</Label>
-                            <Input id="edit-price" type="number" placeholder="0" />
-                          </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div>
-                            <Label htmlFor="edit-category">Category</Label>
-                            <Select>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select category" />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="rings">Rings</SelectItem>
-                                <SelectItem value="necklaces">Necklaces</SelectItem>
-                                <SelectItem value="earrings">Earrings</SelectItem>
-                                <SelectItem value="bracelets">Bracelets</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </div>
-                          <div>
-                            <Label htmlFor="edit-stock">Stock Quantity</Label>
-                            <Input id="edit-stock" type="number" placeholder="0" />
-                          </div>
-                        </div>
-                        <div>
-                          <Label htmlFor="edit-description">Description</Label>
-                          <Textarea id="edit-description" placeholder="Product description" />
-                        </div>
-                        <div>
-                          <Label htmlFor="edit-images">Product Images</Label>
-                          <div className="flex items-center gap-2 mb-2">
-                            <div className="border rounded p-1">
-                              <Image
-                                src="/placeholder.svg?height=60&width=60"
-                                width={60}
-                                height={60}
-                                alt="Current product image"
-                              />
+                      {productBeingEdited && (
+                        <div className="grid gap-4 py-4">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label htmlFor="edit-name">Product Name</Label>
+                              <Input id="edit-name" defaultValue={productBeingEdited.name} placeholder="Enter product name" />
+                            </div>
+                            <div>
+                              <Label htmlFor="edit-price">Price (₹)</Label>
+                              <Input id="edit-price" type="number" defaultValue={productBeingEdited.price} placeholder="0" />
                             </div>
                           </div>
-                          <Input id="edit-images" type="file" multiple accept="image/*" />
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <Label htmlFor="edit-category">Category</Label>
+                              <Select defaultValue={productBeingEdited.category.toLowerCase()}>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select category" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="rings">Rings</SelectItem>
+                                  <SelectItem value="necklaces">Necklaces</SelectItem>
+                                  <SelectItem value="earrings">Earrings</SelectItem>
+                                  <SelectItem value="bracelets">Bracelets</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            <div>
+                              <Label htmlFor="edit-stock">Stock Quantity</Label>
+                              <Input id="edit-stock" type="number" defaultValue={productBeingEdited.stock} placeholder="0" />
+                            </div>
+                          </div>
+                          <div>
+                            <Label htmlFor="edit-description">Description</Label>
+                            <Textarea id="edit-description" placeholder="Product description" defaultValue="" />
+                          </div>
+                          <div>
+                            <Label htmlFor="edit-images">Product Images</Label>
+                            <div className="flex items-center gap-2 mb-2">
+                              <div className="border rounded p-1">
+                                <Image
+                                  src={productBeingEdited.image || "/placeholder.svg?height=60&width=60"}
+                                  width={60}
+                                  height={60}
+                                  alt={productBeingEdited.name}
+                                />
+                              </div>
+                            </div>
+                            <Input id="edit-images" type="file" multiple accept="image/*" />
+                          </div>
+                          <div className="flex justify-end space-x-2">
+                            <Button variant="outline" onClick={() => setIsEditProductOpen(false)}>Cancel</Button>
+                            <Button className="bg-gradient-to-r from-purple-600 to-pink-600" onClick={() => { /* save changes placeholder */ setIsEditProductOpen(false) }}>Save Changes</Button>
+                          </div>
                         </div>
-                        <div className="flex justify-end space-x-2">
-                          <Button variant="outline">Cancel</Button>
-                          <Button className="bg-gradient-to-r from-purple-600 to-pink-600">Save Changes</Button>
-                        </div>
-                      </div>
+                      )}
                     </DialogContent>
                   </Dialog>
                 </div>
@@ -329,9 +329,8 @@ export default function AdminDashboard() {
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={() => {
-                                document.querySelector(".edit-product-button")?.click()
-                              }}
+                              aria-label="Edit product"
+                              onClick={() => { setProductBeingEdited(product); setIsEditProductOpen(true); }}
                             >
                               <Edit className="h-4 w-4" />
                             </Button>

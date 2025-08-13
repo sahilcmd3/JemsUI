@@ -11,7 +11,7 @@ export default function JewelryCarePage() {
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-2">
               <Gem className="h-6 w-6 text-purple-600" />
-              <span className="text-xl font-bold">LuxeGems</span>
+              <span className="text-xl font-bold">Name & CO.</span>
             </Link>
           </div>
         </div>
@@ -184,7 +184,7 @@ export default function JewelryCarePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4">
-                  LuxeGems offers comprehensive jewelry care services to keep your pieces looking their best.
+                  We offer comprehensive jewelry care services to keep your pieces looking their best.
                 </p>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div className="text-center p-4 border rounded-lg">

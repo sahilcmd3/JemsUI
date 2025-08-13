@@ -76,7 +76,7 @@ export default function CheckoutPage() {
           key: data.keyId,
           amount: data.amount,
           currency: data.currency,
-          name: "LuxeGems",
+          name: "Name & CO.",
           description: "Jewelry Purchase",
           order_id: data.orderId,
           handler: function (response) {

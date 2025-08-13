@@ -28,7 +28,7 @@ export function SiteHeader() {
   const cart = useCart()
   const [isMounted, setIsMounted] = useState(false)
   const [showSearchInput, setShowSearchInput] = useState(false)
-  const [isAppointmentDialogOpen, setIsAppointmentDialogOpen] = useState(false)
+  // Removed unused isAppointmentDialogOpen state
 
   useEffect(() => {
     setIsMounted(true)
@@ -141,7 +141,7 @@ export function SiteHeader() {
               <div className="hidden md:flex items-center">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button variant="ghost" className="flex items-center gap-2 text-sm">
+                    <Button id="appointment-dialog-trigger" variant="ghost" className="flex items-center gap-2 text-sm" aria-label="Book an Appointment">
                       <CalendarDays className="h-5 w-5" />
                       Book an Appointment
                     </Button>
@@ -191,17 +191,17 @@ export function SiteHeader() {
                   </DialogContent>
                 </Dialog>
                 <Link href="/profile" passHref>
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" aria-label="Profile">
                     <User className="h-5 w-5" />
                   </Button>
                 </Link>
                 <Link href="/wishlist" passHref>
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" aria-label="Wishlist">
                     <Heart className="h-5 w-5" />
                   </Button>
                 </Link>
                 <Link href="/cart" passHref>
-                  <Button variant="ghost" size="icon" className="relative">
+                  <Button variant="ghost" size="icon" className="relative" aria-label="Cart">
                     <ShoppingCart className="h-5 w-5" />
                     {isMounted && cart.getItemCount() > 0 && (
                       <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
@@ -216,7 +216,7 @@ export function SiteHeader() {
               <div className="md:hidden flex items-center">
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" aria-label="Book an Appointment">
                       <CalendarDays className="h-5 w-5" />
                     </Button>
                   </DialogTrigger>
@@ -265,7 +265,7 @@ export function SiteHeader() {
                   </DialogContent>
                 </Dialog>
                 <Link href="/cart" passHref>
-                  <Button variant="ghost" size="icon" className="relative">
+                  <Button variant="ghost" size="icon" className="relative" aria-label="Cart">
                     <ShoppingCart className="h-5 w-5" />
                     {isMounted && cart.getItemCount() > 0 && (
                       <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
