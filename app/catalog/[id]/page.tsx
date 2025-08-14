@@ -7,6 +7,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Star, ShoppingCart, Heart, Share2, MapPin, Plus, Minus } from "lucide-react";
 import { playfairDisplay } from "../../../components/site-header";
+import { useCart } from "../../../lib/cart";
+import { useWishlist } from "../../../lib/wishlist";
 
 // Mock product data (in a real app, fetch from API/database)
 const products = [
@@ -165,11 +167,45 @@ const products = [
 export default function ProductPage() {
   const params = useParams();
   const router = useRouter();
+  const { addItem: addToCart } = useCart();
+  const { addItem: addToWishlist } = useWishlist();
   const productId = Number(params.id);
   const product = products.find((p) => p.id === productId);
   const [quantity, setQuantity] = useState(1);
   const [showFullDesc, setShowFullDesc] = useState(false);
   const [mainImage, setMainImage] = useState(product?.images[0] || "");
+  const [addedToBag, setAddedToBag] = useState(false);
+  const [addedToWishlist, setAddedToWishlist] = useState(false);
+
+  const handleAddToBag = () => {
+    if (product) {
+      // Add item to cart (quantity handled by cart logic)
+      for (let i = 0; i < quantity; i++) {
+        addToCart({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          image: product.images[0]
+        });
+      }
+      setAddedToBag(true);
+      setTimeout(() => setAddedToBag(false), 2000);
+    }
+  };
+
+  const handleAddToWishlist = () => {
+    if (product) {
+      addToWishlist({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image: product.images[0],
+        quantity: 1
+      });
+      setAddedToWishlist(true);
+      setTimeout(() => setAddedToWishlist(false), 2000);
+    }
+  };
 
   if (!product) {
     return (
@@ -225,8 +261,18 @@ export default function ProductPage() {
                 <h2 className="text-xl text-gray-700 mt-1 mb-2">{product.subtitle}</h2>
               </div>
               <div className="flex gap-3 mt-2">
-                <Button variant="ghost" size="icon" aria-label="Add to Wishlist"><Heart className="h-6 w-6" /></Button>
-                <Button variant="ghost" size="icon" aria-label="Share"><Share2 className="h-6 w-6" /></Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  aria-label="Add to Wishlist" 
+                  onClick={handleAddToWishlist}
+                  className={addedToWishlist ? "text-red-500" : ""}
+                >
+                  <Heart className={`h-6 w-6 ${addedToWishlist ? 'fill-red-500' : ''}`} />
+                </Button>
+                <Button variant="ghost" size="icon" aria-label="Share">
+                  <Share2 className="h-6 w-6" />
+                </Button>
               </div>
             </div>
             <div className="flex items-center gap-2 mb-4">
@@ -243,13 +289,19 @@ export default function ProductPage() {
                 <span className="text-lg font-medium w-6 text-center">{quantity}</span>
                 <Button variant="ghost" size="icon" onClick={() => setQuantity(q => q + 1)}><Plus /></Button>
               </div>
-              <Button className="bg-black text-white px-10 py-6 text-lg font-semibold" style={{minWidth: 180}}>
-                ${product.price.toLocaleString()} &nbsp; Add to Bag
+              <Button 
+                className={`px-10 py-6 text-lg font-semibold transition-colors ${addedToBag ? 'bg-green-600 text-white' : 'bg-black text-white'}`}
+                style={{minWidth: 180}}
+                onClick={handleAddToBag}
+              >
+                {addedToBag ? '✓ Added to Bag!' : `$${product.price.toLocaleString()} Add to Bag`}
               </Button>
             </div>
             <div className="text-xs text-gray-700 mb-4">Buy now and pay later with <b>PayPal</b>. <a href="#" className="underline">Learn more</a></div>
             <div className="flex flex-col md:flex-row gap-3 mb-6">
-              <Button variant="outline" className="w-full border-black text-black font-medium py-6">Contact a Client Advisor</Button>
+              <Link href="/contact" className="w-full">
+                <Button variant="outline" className="w-full border-black text-black font-medium py-6">Contact a Client Advisor</Button>
+              </Link>
               <Link href="#" className="w-full md:w-auto"><Button variant="ghost" className="w-full text-left justify-start text-black font-medium py-6"><MapPin className="inline-block mr-2" />Find in store</Button></Link>
             </div>
             <div className="mb-8">

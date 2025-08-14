@@ -3,23 +3,13 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, ShoppingCart, User, Search, MapPin, Bell, Calendar, Heart, CalendarDays } from "lucide-react"
+import { Menu, ShoppingCart, User, Search, MapPin, Bell, Calendar, Heart } from "lucide-react"
 import { Playfair_Display } from "next/font/google"
 
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useCart } from "@/lib/cart"
 import { Input } from "@/components/ui/input"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
 
 export const playfairDisplay = Playfair_Display({ subsets: ["latin"], weight: ["400", "700"] })
 
@@ -28,7 +18,6 @@ export function SiteHeader() {
   const cart = useCart()
   const [isMounted, setIsMounted] = useState(false)
   const [showSearchInput, setShowSearchInput] = useState(false)
-  // Removed unused isAppointmentDialogOpen state
 
   useEffect(() => {
     setIsMounted(true)
@@ -139,57 +128,6 @@ export function SiteHeader() {
             {/* Right side actions */}
             <div className="flex items-center space-x-2 flex-1 justify-end">
               <div className="hidden md:flex items-center">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button id="appointment-dialog-trigger" variant="ghost" className="flex items-center gap-2 text-sm" aria-label="Book an Appointment">
-                      <CalendarDays className="h-5 w-5" />
-                      Book an Appointment
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                      <DialogTitle className={playfairDisplay.className}>Book an Appointment</DialogTitle>
-                      <DialogDescription>
-                        Schedule a virtual or in-store appointment with one of our jewelry experts.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="name" className="text-right">
-                          Name
-                        </Label>
-                        <Input id="name" defaultValue="Your Name" className="col-span-3" />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="email" className="text-right">
-                          Email
-                        </Label>
-                        <Input id="email" defaultValue="your@example.com" className="col-span-3" type="email" />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="phone" className="text-right">
-                          Phone
-                        </Label>
-                        <Input id="phone" defaultValue="" className="col-span-3" type="tel" />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="date" className="text-right">
-                          Preferred Date
-                        </Label>
-                        <Input id="date" defaultValue="" className="col-span-3" type="date" />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="time" className="text-right">
-                          Preferred Time
-                        </Label>
-                        <Input id="time" defaultValue="" className="col-span-3" type="time" />
-                      </div>
-                    </div>
-                    <DialogFooter>
-                      <Button type="submit" className="w-full bg-black text-white">Confirm Appointment</Button>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
                 <Link href="/profile" passHref>
                   <Button variant="ghost" size="icon" aria-label="Profile">
                     <User className="h-5 w-5" />
@@ -214,56 +152,6 @@ export function SiteHeader() {
 
               {/* Mobile Navigation */}
               <div className="md:hidden flex items-center">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="ghost" size="icon" aria-label="Book an Appointment">
-                      <CalendarDays className="h-5 w-5" />
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                      <DialogTitle className={playfairDisplay.className}>Book an Appointment</DialogTitle>
-                      <DialogDescription>
-                        Schedule a virtual or in-store appointment with one of our jewelry experts.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="name" className="text-right">
-                          Name
-                        </Label>
-                        <Input id="name" defaultValue="Your Name" className="col-span-3" />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="email" className="text-right">
-                          Email
-                        </Label>
-                        <Input id="email" defaultValue="your@example.com" className="col-span-3" type="email" />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="phone" className="text-right">
-                          Phone
-                        </Label>
-                        <Input id="phone" defaultValue="" className="col-span-3" type="tel" />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="date" className="text-right">
-                          Preferred Date
-                        </Label>
-                        <Input id="date" defaultValue="" className="col-span-3" type="date" />
-                      </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="time" className="text-right">
-                          Preferred Time
-                        </Label>
-                        <Input id="time" defaultValue="" className="col-span-3" type="time" />
-                      </div>
-                    </div>
-                    <DialogFooter>
-                      <Button type="submit" className="w-full bg-black text-white">Confirm Appointment</Button>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
                 <Link href="/cart" passHref>
                   <Button variant="ghost" size="icon" className="relative" aria-label="Cart">
                     <ShoppingCart className="h-5 w-5" />

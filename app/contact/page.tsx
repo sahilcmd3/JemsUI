@@ -1,6 +1,6 @@
 "use client"
 
-import type { Metadata } from "next"
+import { useState } from "react"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
@@ -10,12 +10,20 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Separator } from "@/components/ui/separator"
 
-export const metadata: Metadata = {
-  title: "Contact Us | Luxury Jewelry Marketplace",
-  description: "Get in touch with our team for inquiries, support, or custom jewelry requests.",
-}
-
 export default function ContactPage() {
+  const [isMessageSent, setIsMessageSent] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // TODO: integrate with backend API
+    setIsMessageSent(true)
+    setTimeout(() => {
+      setIsMessageSent(false)
+      // Reset form
+      const form = e.target as HTMLFormElement
+      form.reset()
+    }, 4000)
+  }
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-col items-center text-center mb-12">
@@ -28,7 +36,13 @@ export default function ContactPage() {
       <div className="grid md:grid-cols-2 gap-12 mb-16">
         <Card>
           <CardContent className="pt-6">
-            <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); /* TODO: integrate backend */ alert('Message sent (demo)'); }}>
+            {isMessageSent && (
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-md">
+                <p className="text-green-800 font-medium">✓ Message sent successfully!</p>
+                <p className="text-green-600 text-sm">We'll get back to you within 24 hours.</p>
+              </div>
+            )}
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
                 <Input id="name" placeholder="Your name" required />

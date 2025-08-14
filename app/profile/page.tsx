@@ -57,9 +57,8 @@ export default function ProfilePage() {
             <Image
               src="/assets/necklace.jpg" // Placeholder for the product image
               alt="The Extra-Ordinary Grey Pearls"
-              layout="fill"
-              objectFit="contain"
-              className="rounded-md"
+              fill
+              className="object-contain rounded-md"
             />
           </div>
           <div className="flex-1">
@@ -84,9 +83,8 @@ export default function ProfilePage() {
             <Image
               src="/assets/rings.jpg" // Placeholder for the product image
               alt="Diamond Solitaire Ring"
-              layout="fill"
-              objectFit="contain"
-              className="rounded-md"
+              fill
+              className="object-contain rounded-md"
             />
           </div>
           <div className="flex-1">
@@ -111,9 +109,8 @@ export default function ProfilePage() {
             <Image
               src="/assets/earrings.jpg" // Placeholder for the product image
               alt="Pearl Drop Earrings"
-              layout="fill"
-              objectFit="contain"
-              className="rounded-md"
+              fill
+              className="object-contain rounded-md"
             />
           </div>
           <div className="flex-1">

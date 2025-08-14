@@ -12,33 +12,24 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { CreditCard, Truck, Shield, ArrowLeft, Gem } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useCart } from "@/lib/cart"
+import { formatCurrency } from "@/lib/utils"
 
 export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("card")
+  const { items: cartItems, getTotal } = useCart()
 
-  const cartItems = [
-    {
-      id: 1,
-      name: "Diamond Solitaire Ring",
-      price: 45000,
-      quantity: 1,
-      image: "/placeholder.svg?height=80&width=80",
-    },
-    {
-      id: 2,
-      name: "Pearl Drop Earrings",
-      price: 8500,
-      quantity: 2,
-      image: "/placeholder.svg?height=80&width=80",
-    },
-  ]
-
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const shipping = 500
+  const subtotal = getTotal()
+  const shipping = cartItems.length > 0 ? 500 : 0
   const tax = subtotal * 0.03 // 3% GST
   const total = subtotal + shipping + tax
 
   const handlePayment = async () => {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty. Please add items to proceed.")
+      return
+    }
+
     try {
       // In a real implementation, you would:
       // 1. Validate the form data
@@ -146,7 +137,18 @@ export default function CheckoutPage() {
           <h1 className="text-2xl font-bold">Checkout</h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Empty Cart State */}
+        {cartItems.length === 0 ? (
+          <div className="text-center py-16">
+            <Gem className="h-24 w-24 mx-auto text-gray-300 mb-6" />
+            <h2 className="text-2xl font-bold text-gray-600 mb-4">Your cart is empty</h2>
+            <p className="text-gray-500 mb-8">Add some beautiful jewelry to continue</p>
+            <Button asChild className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">
+              <Link href="/catalog">Continue Shopping</Link>
+            </Button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Checkout Form */}
           <div className="lg:col-span-2 space-y-6">
             {/* Shipping Information */}
@@ -334,7 +336,7 @@ export default function CheckoutPage() {
                         <h4 className="font-medium text-sm">{item.name}</h4>
                         <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
                       </div>
-                      <span className="font-medium">₹{(item.price * item.quantity).toLocaleString()}</span>
+                      <span className="font-medium">{formatCurrency(item.price * item.quantity)}</span>
                     </div>
                   ))}
                 </div>
@@ -345,20 +347,20 @@ export default function CheckoutPage() {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>₹{subtotal.toLocaleString()}</span>
+                    <span>{formatCurrency(subtotal)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Shipping</span>
-                    <span>₹{shipping.toLocaleString()}</span>
+                    <span>{formatCurrency(shipping)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Tax (GST)</span>
-                    <span>₹{tax.toLocaleString()}</span>
+                    <span>{formatCurrency(tax)}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span>₹{total.toLocaleString()}</span>
+                    <span>{formatCurrency(total)}</span>
                   </div>
                 </div>
 
@@ -373,7 +375,7 @@ export default function CheckoutPage() {
                   className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg py-3"
                   onClick={handlePayment}
                 >
-                  Place Order - ₹{total.toLocaleString()}
+                  Place Order - {formatCurrency(total)}
                 </Button>
 
                 <p className="text-xs text-gray-600 text-center">
@@ -383,6 +385,7 @@ export default function CheckoutPage() {
             </Card>
           </div>
         </div>
+        )}
       </div>
     </div>
   )

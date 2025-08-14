@@ -9,12 +9,13 @@ import Link from "next/link"
 import { playfairDisplay } from "../../components/site-header"
 import { useWishlist } from "../../lib/wishlist"
 import { useCart } from "../../lib/cart"
+import { CartItem } from "@/lib/types"
 
 export default function WishlistPage() {
   const { items: wishlistItems, removeItem: removeFromWishlist } = useWishlist()
   const { addItem: addToCart } = useCart()
 
-  const handleMoveToCart = (item: any) => {
+  const handleMoveToCart = (item: CartItem) => {
     addToCart(item)
     removeFromWishlist(item.id)
   }

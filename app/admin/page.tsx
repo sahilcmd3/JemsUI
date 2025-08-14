@@ -13,11 +13,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Plus, Edit, Trash2, Package, ShoppingCart, Users, Eye, Gem, BarChart3, DollarSign } from "lucide-react"
 import Image from "next/image"
+import { Product } from "@/lib/types"
 
 export default function AdminDashboard() {
   const [isAddProductOpen, setIsAddProductOpen] = useState(false)
   const [isEditProductOpen, setIsEditProductOpen] = useState(false)
-  const [productBeingEdited, setProductBeingEdited] = useState<any | null>(null)
+  const [productBeingEdited, setProductBeingEdited] = useState<Product | null>(null)
 
   const stats = [
     {
@@ -241,7 +242,7 @@ export default function AdminDashboard() {
                           <div className="grid grid-cols-2 gap-4">
                             <div>
                               <Label htmlFor="edit-category">Category</Label>
-                              <Select defaultValue={productBeingEdited.category.toLowerCase()}>
+                              <Select defaultValue={productBeingEdited.category?.toLowerCase() || ''}>
                                 <SelectTrigger>
                                   <SelectValue placeholder="Select category" />
                                 </SelectTrigger>

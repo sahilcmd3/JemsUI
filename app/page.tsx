@@ -4,10 +4,10 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
 import { Star, ShoppingCart, Heart, Search, Menu, User, Gem, Shield, Truck, RotateCcw, ArrowLeft, ArrowRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { Input } from "@/components/ui/input"
 import { playfairDisplay } from "../components/site-header"
 import { useCart } from "../lib/cart"
 
@@ -209,9 +209,8 @@ export default function HomePage() {
             <Image
               src={images[currentImageIndex].src}
               alt={images[currentImageIndex].alt}
-              layout="fill"
-              objectFit="cover"
-              className="transition-opacity duration-1000 ease-in-out"
+              fill
+              className="object-cover transition-opacity duration-1000 ease-in-out"
             />
             <Button
               variant="ghost"
@@ -285,29 +284,6 @@ export default function HomePage() {
               </Button>
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Book an Appointment Section */}
-      <section className="relative py-20 px-4 bg-cover bg-center" style={{ backgroundImage: `url('/assets/bg.jpg')` }}>
-        <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="relative container mx-auto text-center text-white z-10">
-          <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${playfairDisplay.className}`}>Interested in Our Products?</h2>
-          <p className="text-lg md:text-xl mb-8">
-            Book an appointment with our experts for a personalized experience.
-          </p>
-          <Button
-            size="lg"
-            className="bg-white text-black font-bold hover:bg-gray-200"
-            onClick={() => {
-              // Try to open site header appointment dialog
-              const trigger = document.getElementById('appointment-dialog-trigger') as HTMLButtonElement | null;
-              trigger?.click();
-            }}
-            aria-label="Book an appointment"
-          >
-            Book Appointment
-          </Button>
         </div>
       </section>
 
