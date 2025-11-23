@@ -12,3 +12,9 @@ export function formatCurrency(amount: number): string {
     maximumFractionDigits: 2,
   }).format(amount)
 }
+
+export function formatNumber(amount: number, locale: string = "en-IN"): string {
+  return new Intl.NumberFormat(locale, {
+    maximumFractionDigits: 0,
+  }).format(amount)
+}

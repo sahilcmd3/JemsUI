@@ -31,9 +31,9 @@ export function SiteFooter() {
             <li><Link href="#" className="text-gray-600 hover:text-gray-900">Product Care & Repair</Link></li>
             <li><Link href="#" className="text-gray-600 hover:text-gray-900">Frequently Asked Questions</Link></li>
             <li><Link href="#" className="text-gray-600 hover:text-gray-900">Shipping & Returns</Link></li>
-            <li><Link href="#" className="text-gray-600 hover:text-gray-900">name Select Financing</Link></li>
+            {/* <li><Link href="#" className="text-gray-600 hover:text-gray-900">name Select Financing</Link></li>
             <li><Link href="#" className="text-gray-600 hover:text-gray-900">Gift Cards</Link></li>
-            <li><Link href="#" className="text-gray-600 hover:text-gray-900">Website Accessibility</Link></li>
+            <li><Link href="#" className="text-gray-600 hover:text-gray-900">Website Accessibility</Link></li> */}
           </ul>
         </div>
         <div>
@@ -48,7 +48,7 @@ export function SiteFooter() {
             <Input 
               required 
               type="email" 
-              placeholder="Email" 
+              placeholder=" Email" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="flex-grow border-b border-gray-400 focus:border-gray-900 px-0 py-1 bg-transparent text-gray-900 placeholder-gray-500" 
@@ -70,7 +70,7 @@ export function SiteFooter() {
       </div>
       <div className="container mx-auto flex justify-between items-center mt-4 pt-4 border-t border-gray-200">
         <div className="flex items-center space-x-2 text-gray-600">
-          <span>Change Location: United States</span>
+          {/* <span>Change Location: United States</span> */}
           {/* Dropdown icon goes here */}
         </div>
         <p className="text-gray-600">&copy; T&CO. 2025</p>
