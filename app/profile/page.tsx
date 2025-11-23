@@ -1,28 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import { useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
 import { playfairDisplay } from "../../components/site-header"
 
 export default function ProfilePage() {
-  const { data: session, status } = useSession()
-  const router = useRouter()
-
-  if (status === "loading") {
-    return (
-      <div className="min-h-screen bg-white py-8 px-4">
-        <div className="container mx-auto flex items-center justify-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-        </div>
-      </div>
-    )
-  }
-
-  if (!session) {
-    router.push("/login")
-    return null
-  }
   return (
     <div className="min-h-screen bg-white py-8 px-4">
       <div className="container mx-auto">
@@ -39,9 +20,9 @@ export default function ProfilePage() {
               />
             </div>
             <div>
-              <h2 className="text-xl font-semibold">{session.user?.name || "User"}</h2>
-              <a href={`mailto:${session.user?.email}`} className="text-gray-800 underline">{session.user?.email}</a>
-              <p className="text-gray-600">Member since 2024</p>
+              <h2 className="text-xl font-semibold">Alexdandra Lomino</h2>
+              <a href="mailto:alexalo978@gmail.com" className="text-gray-800 underline">alexalo978@gmail.com</a>
+              <p className="text-gray-600">Female</p>
             </div>
           </div>
           <div className="flex flex-col items-center md:items-end justify-center flex-1">
