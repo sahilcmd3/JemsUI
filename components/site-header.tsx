@@ -282,6 +282,12 @@ export function SiteHeader() {
                         <li><Link href="/catalog?birthstone=March" onClick={() => setOpenMenu(null)}>March Birthstone</Link></li>
                         <li><Link href="/catalog?birthstone=April" onClick={() => setOpenMenu(null)}>April Birthstone</Link></li>
                         <li><Link href="/catalog?birthstone=May" onClick={() => setOpenMenu(null)}>May Birthstone</Link></li>
+                        <li><Link href="/catalog?birthstone=May" onClick={() => setOpenMenu(null)}>June Birthstone</Link></li>
+                        <li><Link href="/catalog?birthstone=May" onClick={() => setOpenMenu(null)}>July Birthstone</Link></li>
+                        <li><Link href="/catalog?birthstone=May" onClick={() => setOpenMenu(null)}>August Birthstone</Link></li>
+                        <li><Link href="/catalog?birthstone=May" onClick={() => setOpenMenu(null)}>September Birthstone</Link></li>
+
+
                       </ul>
                     </div>
                   </div>
