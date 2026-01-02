@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -16,8 +18,23 @@ import { useCart } from "@/lib/cart"
 import { formatCurrency } from "@/lib/utils"
 
 export default function CheckoutPage() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const [paymentMethod, setPaymentMethod] = useState("card")
   const { items: cartItems, getTotal } = useCart()
+
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
+  if (!session) {
+    router.push("/login?callbackUrl=/checkout")
+    return null
+  }
 
   const subtotal = getTotal()
   const shipping = cartItems.length > 0 ? 500 : 0

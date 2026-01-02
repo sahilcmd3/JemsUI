@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -14,16 +16,32 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Plus, Edit, Trash2, Package, ShoppingCart, Users, Eye, Gem, BarChart3, DollarSign } from "lucide-react"
 import Image from "next/image"
 import { Product } from "@/lib/types"
+import { formatNumber } from "@/lib/utils"
 
 export default function AdminDashboard() {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   const [isAddProductOpen, setIsAddProductOpen] = useState(false)
   const [isEditProductOpen, setIsEditProductOpen] = useState(false)
   const [productBeingEdited, setProductBeingEdited] = useState<Product | null>(null)
 
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
+  if (!session) {
+    router.push("/login?callbackUrl=/admin")
+    return null
+  }
+
   const stats = [
     {
       title: "Total Revenue",
-      value: "₹2,45,000",
+      value: `₹${formatNumber(245000)}`,
       change: "+12.5%",
       icon: DollarSign,
       color: "text-green-600",
@@ -44,7 +62,7 @@ export default function AdminDashboard() {
     },
     {
       title: "Customers",
-      value: "1,234",
+      value: formatNumber(1234),
       change: "+15.3%",
       icon: Users,
       color: "text-orange-600",
@@ -314,7 +332,7 @@ export default function AdminDashboard() {
                             <span className="font-medium">{product.name}</span>
                           </div>
                         </TableCell>
-                        <TableCell>₹{product.price.toLocaleString()}</TableCell>
+                        <TableCell>₹{formatNumber(product.price)}</TableCell>
                         <TableCell>{product.stock}</TableCell>
                         <TableCell>{product.category}</TableCell>
                         <TableCell>
@@ -372,7 +390,7 @@ export default function AdminDashboard() {
                       <TableRow key={order.id}>
                         <TableCell className="font-medium">{order.id}</TableCell>
                         <TableCell>{order.customer}</TableCell>
-                        <TableCell>₹{order.amount.toLocaleString()}</TableCell>
+                        <TableCell>₹{formatNumber(order.amount)}</TableCell>
                         <TableCell>{order.items}</TableCell>
                         <TableCell>{order.date}</TableCell>
                         <TableCell>
@@ -454,7 +472,7 @@ export default function AdminDashboard() {
                             />
                             <span className="font-medium">{product.name}</span>
                           </div>
-                          <span className="text-sm text-gray-600">₹{product.price.toLocaleString()}</span>
+                          <span className="text-sm text-gray-600">₹{formatNumber(product.price)}</span>
                         </div>
                       ))}
                     </div>

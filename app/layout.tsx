@@ -3,10 +3,9 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import { Playfair_Display } from "next/font/google"
 import "./globals.css"
-
-import { SiteHeader } from "@/components/site-header"
+import { ClientHeader } from "@/components/client-header"
 import { SiteFooter } from "@/components/footer"
-import { ThemeProvider } from "@/components/theme-provider"
+import { Providers } from "@/components/providers"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -24,13 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
+        <Providers>
           <div className="relative flex min-h-screen flex-col bg-background">
-            <SiteHeader />
+            <ClientHeader />
             <main className="flex-1">{children}</main>
             <SiteFooter />
           </div>
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )
