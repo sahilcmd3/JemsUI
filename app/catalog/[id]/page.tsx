@@ -294,7 +294,7 @@ export default function ProductPage() {
                 style={{minWidth: 180}}
                 onClick={handleAddToBag}
               >
-                {addedToBag ? '✓ Added to Bag!' : `$${product.price.toLocaleString()} Add to Bag`}
+                {addedToBag ? '✓ Added to Bag!' : `₹${product.price.toLocaleString()} Add to Bag`}
               </Button>
             </div>
             <div className="text-xs text-gray-700 mb-4">Buy now and pay later with <b>PayPal</b>. <a href="#" className="underline">Learn more</a></div>

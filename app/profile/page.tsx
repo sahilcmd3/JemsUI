@@ -90,8 +90,8 @@ export default function ProfilePage() {
           </div>
           <div className="md:ml-auto text-right">
             <div className="grid grid-cols-2 gap-x-8 gap-y-0 text-gray-600">
-              <span>Tax:</span><span className="text-right">$32</span>
-              <span className="font-semibold text-gray-900">Grand Total:</span><span className="font-semibold text-gray-900 text-right">$243</span>
+              <span>Tax:</span><span className="text-right">₹32</span>
+              <span className="font-semibold text-gray-900">Grand Total:</span><span className="font-semibold text-gray-900 text-right">₹243</span>
             </div>
           </div>
         </div>
@@ -116,8 +116,8 @@ export default function ProfilePage() {
           </div>
           <div className="md:ml-auto text-right">
             <div className="grid grid-cols-2 gap-x-8 gap-y-0 text-gray-600">
-              <span>Tax:</span><span className="text-right">$15</span>
-              <span className="font-semibold text-gray-900">Grand Total:</span><span className="font-semibold text-gray-900 text-right">$1500</span>
+              <span>Tax:</span><span className="text-right">₹15</span>
+              <span className="font-semibold text-gray-900">Grand Total:</span><span className="font-semibold text-gray-900 text-right">₹1500</span>
             </div>
           </div>
         </div>
@@ -142,8 +142,8 @@ export default function ProfilePage() {
           </div>
           <div className="md:ml-auto text-right">
             <div className="grid grid-cols-2 gap-x-8 gap-y-0 text-gray-600">
-              <span>Tax:</span><span className="text-right">$10</span>
-              <span className="font-semibold text-gray-900">Grand Total:</span><span className="font-semibold text-gray-900 text-right">$950</span>
+              <span>Tax:</span><span className="text-right">₹10</span>
+              <span className="font-semibold text-gray-900">Grand Total:</span><span className="font-semibold text-gray-900 text-right">₹950</span>
             </div>
           </div>
         </div>
