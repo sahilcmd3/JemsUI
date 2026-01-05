@@ -10,6 +10,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { playfairDisplay } from "../components/site-header"
 import { useCart } from "../lib/cart"
+import { CategoriesCarousel } from "../components/categories-carousel"
+import { ProductsCarousel } from "../components/products-carousel"
 
 export default function HomePage() {
   const featuredProducts = [
@@ -93,30 +95,6 @@ export default function HomePage() {
     },
   ]
 
-  const images = [
-    { src: "/assets/rings.jpg", alt: "Rings Collection" },
-    { src: "/assets/bracelets.jpg", alt: "Bracelets Collection" },
-    { src: "/assets/necklace.jpg", alt: "Necklace Collection" },
-    { src: "/assets/earrings.jpg", alt: "Earrings Collection" },
-  ]
-
-  const [currentImageIndex, setCurrentImageIndex] = useState<number>(0)
-
-  const handlePrev = () => {
-    setCurrentImageIndex((prevIndex: number) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
-  }
-
-  const handleNext = () => {
-    setCurrentImageIndex((prevIndex: number) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))
-  }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex: number) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [images.length]);
 
   const { addItem } = useCart();
 
@@ -155,80 +133,20 @@ export default function HomePage() {
         <div className="container mx-auto">
           <h2 className={`text-3xl md:text-4xl font-bold text-center mb-4 ${playfairDisplay.className}`}>Best Sellers</h2>
           <p className="text-center text-lg text-gray-600 mb-12">Our most popular pieces, loved by our customers.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {featuredProducts.slice(0, 3).map((product) => (
-              <div key={product.id} className="relative group bg-white rounded-lg shadow hover:shadow-lg transition-all overflow-hidden">
-                <Link href={`/catalog/${product.id}`} className="block">
-                  <div className="relative">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      width={300}
-                      height={300}
-                      className="object-cover w-full h-64 group-hover:scale-105 transition-transform duration-300"
-                    />
-                    {product.isNew && (
-                      <Badge className="absolute top-4 left-4 bg-black text-white">New</Badge>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-semibold text-lg mb-1">{product.name}</h3>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Star className="h-4 w-4 fill-gray-600 text-gray-600" />
-                      <span className="text-sm text-gray-600">{product.rating} ({product.reviews})</span>
-                    </div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xl font-bold text-black">₹{product.price.toLocaleString()}</span>
-                      <span className="text-sm text-gray-500 line-through">₹{product.originalPrice.toLocaleString()}</span>
-                    </div>
-                  </div>
-                </Link>
-                <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                  <Button size="icon" variant="ghost" className="bg-white/80 hover:bg-white" aria-label="Add to Wishlist" onClick={e => e.stopPropagation()}>
-                    <Heart className="h-5 w-5 text-gray-700" />
-                  </Button>
-                </div>
-                <div className="p-6 pt-0">
-                  <Button className="w-full bg-black text-white hover:bg-gray-800 mt-2" onClick={e => { e.stopPropagation(); addItem({ id: product.id, name: product.name, price: product.price, image: product.image }); }}>
-                    <ShoppingCart className="h-4 w-4 mr-2" />Add to Cart
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
+          <ProductsCarousel
+            products={featuredProducts}
+            onAddToCart={(product) => addItem({ id: product.id, name: product.name, price: product.price, image: product.image })}
+          />
         </div>
       </section>
 
-      {/* Categories -> Image Carousel */}
-      <section className="py-16 px-4 bg-white relative overflow-hidden">
+      {/* Categories Carousel */}
+      <section className="py-16 px-4 bg-white">
         <div className="container mx-auto">
           <h2 className={`text-3xl md:text-4xl font-bold text-center mb-12 ${playfairDisplay.className}`}>
             Discover Our Categories
           </h2>
-          <div className="relative w-full mx-auto h-[400px] md:h-[500px] lg:h-[600px] rounded-lg shadow-xl overflow-hidden">
-            <Image
-              src={images[currentImageIndex].src}
-              alt={images[currentImageIndex].alt}
-              fill
-              className="object-cover transition-opacity duration-1000 ease-in-out"
-            />
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/80 text-gray-800 rounded-full z-10"
-              onClick={handlePrev}
-            >
-              <ArrowLeft className="h-6 w-6" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/50 hover:bg-white/80 text-gray-800 rounded-full z-10"
-              onClick={handleNext}
-            >
-              <ArrowRight className="h-6 w-6" />
-            </Button>
-          </div>
+          <CategoriesCarousel />
           <div className="text-center mt-12">
             <Link href="/catalog" passHref>
               <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white px-8 py-3">

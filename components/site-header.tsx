@@ -12,6 +12,7 @@ import { Portal } from "@/components/portal"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useCart } from "@/lib/cart"
 import { Input } from "@/components/ui/input"
+import { OffersCarousel } from "@/components/offers-carousel"
 
 export const playfairDisplay = Playfair_Display({ subsets: ["latin"], weight: ["400", "700"] })
 
@@ -367,6 +368,9 @@ export function SiteHeader() {
           </ul>
         </div>
       </nav>
+
+      {/* Offers Carousel - Only show on home page */}
+      {pathname === "/" && <OffersCarousel />}
     </>
   )
 }
